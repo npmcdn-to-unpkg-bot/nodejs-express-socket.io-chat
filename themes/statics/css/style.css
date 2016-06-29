@@ -1,0 +1,668 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+body, h1, h2, h3, h4, h5, h6, dl, dd, p, figure, form {
+    margin: 0;
+}
+
+menu, ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+    display: block;
+}
+
+body {
+    color: #666;
+    background: #eee;
+    font: 0.875em/22px "Microsoft YaHei", Tahoma, Verdana, Helvetica, Arial, "SimSun", Sans-serif;
+}
+
+h1 {
+    font-size: 1.571em;
+    line-height: 1.454;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 1.285em;
+    line-height: 1.555;
+}
+
+h3 {
+    font-size: 1.142em;
+    line-height: 1.625;
+}
+
+h4 {
+    font-size: 1.071em;
+    line-height: 1.785;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+
+a {
+    color: #09c;
+    outline: none;
+    background: none;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: #f60;
+}
+
+::selection {
+    color: #fff;
+    background: #dc6d6d;
+}
+::-moz-selection {
+    color: #fff;
+    background: #dc6d6d;
+}
+
+img {
+    display: inline-block;
+    vertical-align: middle;
+    border: none;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+cite {
+    font-style: normal;
+}
+
+input[type=text], input[type=password], input[type=submit], input[type=reset], input[type=button], textarea {
+    margin: 0;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+input[type=text], input[type=password], textarea {
+    padding: 3px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+input[type=submit], input[type=reset], input[type=button] {
+    padding: 5px 15px;
+    background: #eee;
+    border: 1px solid #999;
+    cursor: pointer;
+}
+
+textarea {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: auto;
+    resize: vertical;
+}
+
+/*------------------------------------------------------------------------*/
+
+html{
+    overflow-y: scroll;
+}
+
+body{
+    background: url(../images/bg.png);
+}
+
+.page{
+    width: 100%;
+    padding:20px;
+    margin: 0 auto;
+}
+
+.gbooks{
+    width: 100%;
+    float: left;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #FFFFFF;
+    border-radius: 3px;
+    box-shadow: 0px 1px 2px #cccccc;
+}
+
+.gbooks .comment{
+    width:100%;
+    padding-left:50px;
+    float: left;
+    margin-top:20px;
+    position: relative;
+}
+
+.gbooks .comment .author{
+    width: 50px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.gbooks .comment .author img{
+    width:40px;
+    height:40px;
+    float: left;
+    border-radius: 3px;
+}
+
+.gbooks .comment .text{
+    width: 100%;
+    float: left;
+}
+
+.gbooks .comment .text textarea{
+    width: 100%;
+    height: 107px;
+    padding: 8px;
+    float: left;
+    resize: none;
+    border: 1px solid #CCCCCC;
+}
+
+.gbooks .comment .text_ftbar{
+    width: 100%;
+    height: 30px;
+    float: left;
+    background: #FBFBFB;
+    border: 1px solid #CCCCCC;
+    border-top: none;
+}
+
+.gbooks .comment .text_ftbar .length{
+    height: 30px;
+    line-height:30px;
+    float: left;
+    color: #999999;
+    margin-left:10px;
+}
+
+.gbooks .comment .text_ftbar .length span{
+    color: #DB6C6C;
+}
+
+.gbooks .comment .text_ftbar .submit{
+    width: 60px;
+    height: 29px;
+    line-height:29px;
+    text-align: center;
+    float: right;
+    cursor: pointer;
+    background: #EEEEEE;
+    border-left: 1px solid #CCCCCC;
+}
+
+.gbooks .comment .text_ftbar .submit:hover{
+    background: #E7E7E7;
+}
+
+.gbooks .comment-count{
+    width: 100%;
+    height: 31px;
+    float: left;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    position: relative;
+}
+
+.gbooks .comment-count .line{
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 15px;
+    left: 0px;
+    background: #EEEEEE;
+}
+
+.gbooks .comment-count .text{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.gbooks .comment-count .text span{
+    padding: 0 10px 0 10px;
+    height: 30px;
+    line-height:30px;
+    color: #DB6C6C;
+    background: #FFFFFF;
+}
+
+.gbooks .comment-list{
+    width:100%;
+    float: left;
+    overflow: hidden;
+}
+
+.gbooks .comment-list.false{
+    display: none;
+}
+
+.gbooks .comment-list.true{
+    display: block;
+}
+
+.gbooks .comment-list .commont-item{
+    animation: pushAnime 0.2s ease 0s 1 forwards;
+}
+
+@keyframes pushAnime{
+    0%   {opacity:0;transform: translate(0,-50%);}
+    100% {opacity:1;transform: translate(0,0);}
+}
+
+.gbooks .comment-list .commont-item{
+    width: 100%;
+    float: left;
+    padding-left:50px;
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom:20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.gbooks .comment-list .commont-item:hover{
+    background: url(../images/rec.png);
+}
+
+.gbooks .comment-list .commont-item .author{
+    width: 50px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.gbooks .comment-list .commont-item .author img{
+    width: 40px;
+    height: 40px;
+    float: left;
+    border-radius: 3px;
+}
+
+.gbooks .comment-list .commont-item .content{
+    width: 100%;
+    float: left;
+}
+
+.gbooks .comment-list .commont-item .content .hd,
+.gbooks .comment-list .commont-item .content .say,
+.gbooks .comment-list .commont-item .content .ft{
+    width:100%;
+    float: left;
+}
+
+.gbooks .comment-list .commont-item .content .say{
+    line-height: 140%;
+}
+
+.gbooks .comment-list .commont-item .content .ft{
+    margin-top:3px;
+}
+
+.gbooks .comment-list .commont-item .content .hd span,
+.gbooks .comment-list .commont-item .content .ft span{
+    height: 24px;
+}
+
+.gbooks .comment-list .commont-item .content .hd span.user{
+    color: #017CB9;
+    font-size: 14px;
+    float: left;
+}
+
+.gbooks .comment-list .commont-item .content .say{
+    font-size: 14px;
+}
+
+.gbooks .comment-list .commont-item .content .ft span{
+    font-size:12px;
+    color: #9F9F9F;
+}
+
+/*-------------------------评论模块-------------------------------*/
+
+.chat{
+    width: 100%;
+    float: left;
+    padding: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.chat .panel{
+    width:100%;
+    height: 60px;
+    padding:15px;
+    float: left;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 3px #999;
+}
+
+.chat .panel .login{
+    width:100%;
+    height:30px;
+    line-height:30px;
+    float: left;
+}
+
+.chat .panel .login .name,
+.chat .panel .login .nikname,
+.chat .panel .login .submit{
+    height: 30px;
+    float: left;
+    margin-right:5px;
+}
+
+.chat .panel .login .submit{
+    cursor: pointer;
+    color: #FFFFFF;
+    padding:0 20px 0 20px;
+    background: #069DD5;
+}
+
+.chat .window{
+    width:100%;
+    float: left;
+    position: relative;
+    left: 0px;
+    padding-bottom: 200px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 10px #999;
+}
+
+.chat .window .chat-window{
+    width: 100%;
+    height: 300px;
+    padding-left: 150px;
+    float: left;
+    background: #EBEDF8;
+}
+
+.chat .window .chat-window .title-window{
+    width: 100%;
+    height: 50px;
+    padding: 9px 0 9px 0;
+    border-bottom: 1px solid #D7DAE4;
+}
+
+.chat .window .chat-window .title-window .chat-title{
+    height: 32px;
+    line-height:32px;
+    float: left;
+    margin-left:10px;
+    font-size:16px;
+}
+
+.chat .window .chat-window .title-window .ico{
+    width: 32px;
+    height:32px;
+    float: right;
+    cursor: pointer;
+    margin-right:15px;
+    background: #f6f6f6;
+}
+
+.chat .window .chat-window .title-window .ico:hover{
+    background: #FFFFFF;
+}
+
+.chat .window .chat-window .title-window .ico img{
+    width: 24px;
+    height:24px;
+    margin: 4px;
+}
+
+.chat .window .chat-window .conts-window{
+    width: 100%;
+    height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 8px;
+    float: left;
+}
+
+.chat .window .chat-window .conts-window .say-item.other{
+    width: 100%;
+    padding-left: 43px;
+    float: left;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.chat .window .chat-window .conts-window .say-item.other .author{
+    width: 35px;
+    line-height: 35px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.chat .window .chat-window .conts-window .say-item.other .author img{
+    width: 35px;
+    height: 35px;
+    float: left;
+}
+
+.chat .window .chat-window .conts-window .say-item.other .sayBox{
+    width: 100%;
+    float: left;
+}
+
+.chat .window .chat-window .conts-window .say-item.other .sayBox .name{
+    height: 18px;
+    line-height: 12px;
+    float: left;
+    font-size:14px;
+
+}
+
+.chat .window .chat-window .conts-window .say-item.other .sayBox .sayWrap{
+    width: 100%;
+    float: left;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+
+.chat .window .chat-window .conts-window .say-item.other .sayBox .sayWrap .say{
+    padding: 5px 8px 5px 8px;
+    background: #CDD7E2;
+    color: #000000;
+    line-height: 18px;
+    font-size: 12px;
+    float: left;
+    border-radius: 5px;
+    font-family: "SimSun";
+}
+
+
+.chat .window .chat-window .conts-window .say-item.me{
+    width: 100%;
+    padding-right: 43px;
+    float: left;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.chat .window .chat-window .conts-window .say-item.me .author{
+    width: 35px;
+    line-height: 35px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.chat .window .chat-window .conts-window .say-item.me .author img{
+    width: 35px;
+    height: 35px;
+    float: left;
+}
+
+.chat .window .chat-window .conts-window .say-item.me .sayBox{
+    width: 100%;
+    float: left;
+}
+
+.chat .window .chat-window .conts-window .say-item.me .sayBox .name{
+    height: 18px;
+    line-height: 12px;
+    float: right;
+    font-size:14px;
+
+}
+
+.chat .window .chat-window .conts-window .say-item.me .sayBox .sayWrap{
+    width: 100%;
+    float: right;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+.chat .window .chat-window .conts-window .say-item.me .sayBox .sayWrap .say{
+    padding: 5px 8px 5px 8px;
+    background: #78CDF8;
+    color: #000000;
+    line-height: 18px;
+    font-size: 12px;
+    float: right;
+    border-radius: 5px;
+    font-family: "SimSun";
+}
+
+.chat .window .user-window{
+    width: 150px;
+    height:100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 501;
+    background: #059CD4;
+    box-shadow: -1px 0px 1px #0483B3 inset;
+}
+
+.chat .window .user-window .user-list{
+    width:100%;
+    float: left;
+    padding: 5px;
+}
+
+.chat .window .user-window .item{
+    width: 140px;
+    height: 42px;
+    float: left;
+    cursor: pointer;
+    margin-bottom: 1px;
+    border-radius: 3px;
+}
+
+.chat .window .user-window .item:hover{
+    background: #36AFDC;
+}
+
+.chat .window .user-window .item.cursor{
+    background: #8DD2EB;
+}
+
+.chat .window .user-window .item .author-image{
+    width: 30px;
+    height: 30px;
+    margin: 6px;
+    float: left;
+    background: url('../images/author_nopic.jpg') no-repeat;
+    background-size: 30px 30px;
+}
+
+.chat .window .user-window .item .author-name{
+    width: 92px;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    float: left;
+    margin-top: 6px;
+    color: #f9f9f9;
+    font-size: 14px;
+}
+
+.chat .window .user-window .item.cursor .author-name{
+    color: #000000;
+}
+
+.chat .window .post-window{
+    width: 100%;
+    height: 200px;
+    position: absolute;
+    bottom: 0px;
+    padding-left: 150px;
+    background: #E9EDF7;
+    z-index: 500;
+    border-top: 1px solid #D7DAE4;
+}
+
+.chat .window .post-window .tool-bar{
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    background: #EAEDF8;
+    float: left;
+    border-bottom: 1px solid #D7DAE4;
+}
+
+.chat .window .post-window textarea{
+    width: 100%;
+    height: 125px;
+    border: none;
+    background: #EFF1FA;
+    resize:none;
+    float: left;
+}
+
+.chat .window .post-window .post-bar{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    border-top: 1px solid #D7DAE4;
+}
+
+.chat .window .post-window .post-bar .submit{
+    width: 65px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    float: right;
+    cursor: pointer;
+    margin-right:6px;
+    margin-top:6px;
+    color: #FFFFFF;
+    font-size: 14px;
+    background: #069DD5;
+}
+
+/*-------------------------聊天室模块----------------------------*/

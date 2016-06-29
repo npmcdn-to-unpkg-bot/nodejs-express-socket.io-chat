@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./statics/css/style.css">
+    <script type="text/javascript" src="./statics/js/lib.js"></script>
+    <script type="text/javascript" src="./angular.min.js"></script>
+    <script type="text/javascript" src="./statics/js/app.js"></script>
+
+
+    <!-- 插件[S] !-->
+    <link rel="stylesheet" href="./statics/plugin/ngDialog/ngDialog.min.css">
+    <link rel="stylesheet" href="./statics/plugin/ngDialog/ngDialog-custom-width.css">
+    <link rel="stylesheet" href="./statics/plugin/ngDialog/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" href="./statics/plugin/ngDialog/ngDialog-theme-plain.min.css">
+    <link rel="stylesheet" href="./statics/plugin/ngDialog/ngDialog-theme-flat.css">
+    <script type="text/javascript" src="./statics/plugin/ngDialog/ngDialog.min.js"></script>
+
+    <!-- 插件[E] !-->
+
+
+</head>
+<body ng-app="myApp">
+
+<div class="page">
+    <div class="gbooks" ng-controller="gbooks" ng-cloak>
+
+        <button ng-click="dialog.open()">打开Dialog</button>
+
+        <div class="comment">
+            <div class="author"><img src="./statics/images/author_nopic.jpg" /></div>
+            <div class="text">
+                <textarea placeholder="说点什么" ng-model="say" ng-change="checkText()"></textarea>
+                <div class="text_ftbar">
+                    <div class="length">您还可以输入<span> {{saylength}} </span>个字</div>
+                    <div class="submit" ng-click="submit()">发布</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comment-count">
+            <div class="line"></div>
+            <div class="text"><span>当前共有{{data.commentCount}}条评论</span></div>
+        </div>
+
+        <div class="comment-list">
+
+            <div class="commont-item" ng-repeat="item in data.commentLists">
+                <div class="author"><img src="./statics/images/author_nopic.jpg" /></div>
+                <div class="content">
+                    <div class="hd">
+                        <span class="user">{{item.user}}</span>
+                    </div>
+                    <div class="say">{{item.say}}</div>
+                    <div class="ft">
+                        <span class="date">{{ item.date*1000 | date:'yyyy-MM-dd h:m' }}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="secondDialog">
+    <button ng-click="dialog.close()">点击事件</button>
+</script>
+
+<script type="text/javascript">
+
+    app.factory('dialog', function(ngDialog){
+        var factory = {};
+        factory.Open = function(){
+            factory.obj = ngDialog.open({
+                template: 'secondDialog',
+                showClose: true,
+                controller: 'gbooks',
+                className: 'ngdialog-theme-default ngdialog-theme-custom'
+            });
+            return factory.obj;
+        };
+        return factory;
+    });
+
+
+    app.controller('gbooks', function($scope, $http, dialog){
+
+    $scope.dialog = {};
+
+    $scope.dialog.open = function (){
+        $scope.dialog.dialog_req = dialog.Open();
+    };
+
+    $scope.saylengthMax = 240;
+    $scope.saylength = 240;
+    $scope.data = {};
+    $scope.data.commentLists = {};
+
+    $http({
+        url:'/get_comment',
+        method:'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).success(function(data){
+        $scope.data.commentCount = data.length;
+        $scope.data.commentLists = data;
+    });
+
+    $scope.submit = function(){
+
+        if($scope.say == undefined || $scope.say == ""){
+            return false;
+        };
+
+        var timestamp = parseInt((new Date()).valueOf()/1000);
+
+        $scope.data.commentLists.push({user:"hefei",say:$scope.say,date:timestamp});
+        $scope.data.commentLists.sort(order("date"));
+        $scope.data.commentLists.reverse();
+        $scope.data.commentCount = $scope.data.commentLists.length;
+
+        $http({
+            url:'/in_comment',
+            method:'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            data:{user:"hefei",say:$scope.say,date:timestamp}
+        }).success(function(data){
+            $scope.say = "";
+            $scope.saylength = $scope.saylengthMax;
+        });
+
+    };
+
+    $scope.checkText = function (){
+        $scope.saylength = $scope.saylengthMax - $scope.say.length;
+        if ($scope.say.length > $scope.saylengthMax) {
+            $scope.say = $scope.say.substr(0, $scope.saylengthMax);
+            $scope.saylength = 0;
+        };
+    };
+
+});
+
+</script>
+
+</body>
+</html>

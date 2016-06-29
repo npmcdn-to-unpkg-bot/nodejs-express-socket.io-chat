@@ -1,0 +1,38 @@
+.chat{
+    width: 100%;
+    float: left;
+    padding: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.chat .panel{
+    width:100%;
+    height: 60px;
+    padding:15px;
+    float: left;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 3px #999;
+}
+
+.chat .panel .login{
+    width:100%;
+    height:30px;
+    line-height:30px;
+    float: left;
+}
+
+.chat .panel .login .name,
+.chat .panel .login .nikname,
+.chat .panel .login .submit{
+    height: 30px;
+    float: left;
+    margin-right:5px;
+}
+
+.chat .panel .login .submit{
+    cursor: pointer;
+    color: #FFFFFF;
+    padding:0 20px 0 20px;
+    background: #069DD5;
+}

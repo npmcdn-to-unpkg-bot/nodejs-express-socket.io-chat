@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Title</title>
+    <link rel="stylesheet" href="./statics/css/style.css" />
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript" src="angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="angular-cookies.js"></script>
+    <script type="text/javascript" src="./statics/js/chat.js"></script>
+    <script type="text/javascript" src="./statics/js/socket.io.js"></script>
+</head>
+<body ng-app="myApp">
+
+<div class="page">
+    <div class="chat" ui-view></div>
+</div>
+
+<script>
+
+chat.config(function($stateProvider,$urlRouterProvider) {
+    $stateProvider
+    .state('chat_login', {
+        url: '/login',
+        templateUrl: '../default/chat/chat_login.html',
+        controller: 'chat_login'
+    })
+    .state('chat_window', {
+        url: '/window',
+        templateUrl: '../default/chat/chat_window.html',
+        controller: 'chat_window'
+    });
+
+    $urlRouterProvider.otherwise('/login');
+});
+
+chat.controller('chat_login', function($rootScope,$scope,$cookieStore,$state){
+
+    if($cookieStore.get("username") !== undefined){
+        $state.go('chat_window');
+    }
+
+    $scope.login = function(){
+        if($scope.nikname !== undefined){
+            $cookieStore.put("username",$scope.nikname);
+            $state.go('chat_window');
+        }else{
+            console.log("请输入登录账户");
+        }
+
+    };
+});
+//登录页面
+
+chat.directive('schrollBottom', function () {
+    return {
+        scope: {
+            schrollBottom: "="
+        },
+        link: function(scope, element){
+            scope.$watchCollection('schrollBottom', function (newValue) {
+                if (newValue){
+                    element[0].scrollTop = element[0].scrollHeight;
+                }
+            });
+        }
+    }
+});
+//页面滚动到底部的directive;
+
+
+chat.controller('chat_window', function($rootScope,$scope,$state,$cookieStore){
+
+    var socket = io.connect('http://192.168.2.167:81');
+
+    $scope.saylist = [];
+
+    $scope.signOut = function(){
+        $cookieStore.remove("username");
+        $state.go('chat_login');
+        socket.emit("client_close",'客户端手动断开');
+        socket.close();
+    };
+    //登出
+
+    $scope.submit = function(){
+        if($scope.say.length >0){
+            socket.emit("othersay",$scope.say);
+            $scope.say = "";
+        };
+    };
+    //聊天
+
+    socket.on("othersay",function(data){
+
+        $scope.saylist = [];
+
+        for( var i in data){
+            if($cookieStore.get("username") == data[i].username){
+                var isMe = "me";
+                var isMeIf = false;
+            }else{
+                var isMe = "other";
+                var isMeIf = true;
+            }
+            $scope.saylist.push({"username":data[i].username,"say":data[i].say,"isMe":isMe,"isMeIf":isMeIf});
+        };
+
+        $scope.$apply();
+    });
+    //广播给所有人
+
+    if($cookieStore.get("username") == undefined){
+        $state.go('chat_login');
+    };
+    //判断cookies中这个用户是否登录，若是没有登录就跳转到登录页面
+
+    socket.on('news', function (data){
+        console.log(data);
+    });
+    //尝试与服务端初次建立链接
+
+    if($cookieStore.get("username") !== undefined){
+        socket.emit("login",{username:$cookieStore.get("username")});
+        socket.emit("othersay","");
+        console.log("执行了登录");
+    };
+    //以cookie名进行登录
+
+    socket.on("login", function (names){
+        $scope.userlist = names;
+        console.log($scope.userlist);
+        console.log("登录成功");
+        $scope.$apply();
+    });
+    //监听服务端的登录事件
+
+    socket.on('disconnect', function(){
+        console.log("断开链接了");
+    });
+    //监听与服务端断开的事件
+
+});
+//聊天页面
+
+</script>
+
+</body>
+</html>

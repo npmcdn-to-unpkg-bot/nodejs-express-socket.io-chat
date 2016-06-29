@@ -1,0 +1,36 @@
+<div class="window">
+    <div class="chat-window">
+        <div class="title-window">
+            <span class="chat-title">多人聊天室</span>
+            <span class="ico logout" ng-click="signOut()"><img src="../statics/images/logout.png" /> </span>
+        </div>
+        <div class="conts-window" schroll-bottom="saylist">
+
+            <div class="say-item" ng-class="item.isMe" ng-repeat="item in saylist">
+                <div class="author"><img src="../statics/images/author_nopic.jpg" /></div>
+                <div class="sayBox">
+                    <div class="name" ng-if="item.isMeIf">{{item.username}}</div>
+                    <div class="sayWrap">
+                        <div class="say">{{item.say}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="user-window">
+        <div class="user-list">
+            <div class="item" ng-repeat="item in userlist">
+                <div class="author-image"></div>
+                <div class="author-name">{{item.username}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="post-window">
+        <div class="tool-bar"></div>
+        <textarea placeholder="//说点什么吧" ng-model="say"></textarea>
+        <div class="post-bar">
+            <div class="submit" ng-click="submit()">发送</div>
+        </div>
+    </div>
+</div>
